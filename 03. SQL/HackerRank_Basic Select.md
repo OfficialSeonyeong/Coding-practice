@@ -1,8 +1,6 @@
-# HackerRank_Basic
+# HackerRank_Basic Select
 
 
-
-## Select
 
 ### Revising the Select Query 2
 
@@ -156,3 +154,84 @@ FROM STATION
 WHERE REGEXP_LIKE(CITY,'[aeiou]$');
 ```
 
+
+
+### Weather Observation Station 8
+
+```sql
+SELECT DISTINCT(CITY)
+FROM STATION
+WHERE REGEXP_LIKE(CITY,'^[AEIOU].*[aeiou]$');
+```
+
+
+
+### Weather Observation Station 9
+
+```sql
+SELECT DISTINCT(CITY)
+FROM STATION
+WHERE REGEXP_LIKE(CITY,'^[^AEIOU]');
+```
+
+
+
+### Weather Observation Station 10
+
+```sql
+SELECT DISTINCT(CITY)
+FROM STATION
+WHERE REGEXP_LIKE(CITY,'[^aeiou]$');
+```
+
+
+
+### Weather Observation Station 11
+
+```sql
+SELECT DISTINCT(CITY)
+FROM STATION
+WHERE REGEXP_LIKE(CITY,'^[^AEIOU]') OR REGEXP_LIKE(CITY, '[^aeiou]$');
+```
+
+
+
+### Weather Observation Station 11
+
+```sql
+SELECT DISTINCT(CITY)
+FROM STATION
+WHERE REGEXP_LIKE(CITY,'^[^AEIOU].*[^aeiou]$');
+```
+
+
+
+### Higher Than 75 Marks
+
+```sql
+SELECT Name
+FROM STUDENTS
+WHERE Marks > 75
+ORDER BY SUBSTR(Name,-3), ID;
+```
+
+
+
+### Employee Names
+
+```sql
+SELECT name
+FROM Employee
+ORDER BY name;
+```
+
+
+
+### Employee Salaries
+
+```sql
+SELECT name
+FROM Employee
+WHERE salary > 2000 and months < 10
+ORDER BY employee_id;
+```
