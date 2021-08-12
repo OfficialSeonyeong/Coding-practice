@@ -206,6 +206,17 @@ HAVING hour between 9 and 20
 ORDER BY hour;
 ```
 
+```SQL
+-- mysql
+SELECT H, COUNT(H)
+FROM
+    (SELECT SUBSTRING(DATETIME,12,2) H
+    FROM ANIMAL_OUTS) V
+GROUP BY H
+HAVING H BETWEEN 9 AND 19
+ORDER BY H;
+```
+
 
 
 4. 입양 시각 구하기(2)
