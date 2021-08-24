@@ -78,19 +78,22 @@ ORDER BY A.POWER DESC, B.AGE DESC;
 
 ### Challenges
 
--- 틀림...수정해야하는데 너무 복잡하다.
-
 ```SQL
-SELECT hacker_id, H.name, COUNT(C.challenge_id) created
-FROM Hackers H JOIN Challenges C ON (H.hacker_id=C.hacker_id)
-WHERE created != (SELECT COUNT(B.challenge_id)
-                        FROM Hackers A JOIN Challenges B ON (A.hacker_id=B.hacker_id)
-                        WHERE A.hacker_id != H.hacker_id
-                 		GROUP BY hacker_id
-                 		HAVING COUNT(B.challenge_id)!=(SELECT MAX(COUNT(change_id)
-                                                       FROM Hackers JOIN Challenges USING (hacker_id)
-                                                       GROUP BY hacker_id)))
-GROUP BY hacker_id, H.name
-ORDER BY created DESC, hacker_id
+-- MySQL
+SELECT H.hacker_id, H.name, COUNT(*) challenges_created
+FROM Hackers H INNER JOIN Challenges C ON (H.hacker_id=C.hacker_id)
+GROUP BY H.hacker_id, H.name
+HAVING challenges_created IN (SELECT sub1.challenges_created
+                              FROM (SELECT hacker_id, COUNT(*) challenges_created
+                                    FROM Challenges
+                                    GROUP BY hacker_id) sub1
+                              GROUP BY sub1.challenges_created
+                              HAVING COUNT(*)=1
+                              )
+       OR challenges_created = (SELECT MAX(sub2.challenges_created)
+                                FROM (SELECT COUNT(*) challenges_created
+                                      FROM Challenges
+                                      GROUP BY hacker_id) sub2)
+ORDER BY challenges_created DESC, H.hacker_id                          
 ```
 
