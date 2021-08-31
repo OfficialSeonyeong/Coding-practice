@@ -97,3 +97,17 @@ HAVING challenges_created IN (SELECT sub1.challenges_created
 ORDER BY challenges_created DESC, H.hacker_id                          
 ```
 
+
+
+### Contest Leaderboard
+
+```sql
+SELECT hacker_id, name, SUM(score)
+FROM Hackers H JOIN (SELECT hacker_id, challenge_id, MAX(score) score
+                    FROM Submissions
+                    GROUP BY hacker_id, challenge_id) S USING (hacker_id)
+GROUP BY hacker_id, name
+HAVING SUM(score) != 0
+ORDER BY SUM(score) DESC, hacker_id;
+```
+
